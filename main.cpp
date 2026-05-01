@@ -6,7 +6,6 @@
 
 #include "TextUtils.h"
 #include "Similarity.h"
-#include "BST.h"
 #include "Queue.h"
 
 namespace {
