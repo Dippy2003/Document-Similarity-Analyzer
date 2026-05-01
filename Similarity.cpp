@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 
 namespace {
     struct JaccardResult {
@@ -171,12 +172,25 @@ namespace Similarity {
         double ordered = orderedSimilarityUsingQueue(tokens1, tokens2);
         double reverse = reverseSimilarityUsingStack(tokens1, tokens2);
 
-        report.jaccardPercent = jac.value * 100.0;
-        report.orderedPercent = ordered * 100.0;
-        report.reversePercent = reverse * 100.0;
+        auto toPercent = [](double v) {
+            if (!std::isfinite(v)) {
+                return 0.0;
+            }
+            if (v < 0.0) {
+                v = 0.0;
+            }
+            if (v > 1.0) {
+                v = 1.0;
+            }
+            return v * 100.0;
+        };
+
+        report.jaccardPercent = toPercent(jac.value);
+        report.orderedPercent = toPercent(ordered);
+        report.reversePercent = toPercent(reverse);
 
         double finalScore = 0.6 * jac.value + 0.2 * ordered + 0.2 * reverse;
-        report.finalPercent = finalScore * 100.0;
+        report.finalPercent = toPercent(finalScore);
 
         // Build matching words report using BST traversal and counts.
         std::vector<BST::Entry> entries1 = jac.entries1;
