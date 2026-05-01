@@ -6,7 +6,6 @@
 #include "Stack.h"
 #include "Queue.h"
 
-#include <unordered_set>
 #include <unordered_map>
 #include <vector>
 #include <algorithm>
@@ -163,15 +162,6 @@ namespace Similarity {
 
         report.totalWords1 = tokens1.size();
         report.totalWords2 = tokens2.size();
-
-        LinkedList list1;
-        LinkedList list2;
-        for (const auto& w : tokens1) {
-            list1.insert(w);
-        }
-        for (const auto& w : tokens2) {
-            list2.insert(w);
-        }
 
         JaccardResult jac = jaccardUsingBST(tokens1, tokens2);
         report.uniqueWords1 = jac.unique1;
