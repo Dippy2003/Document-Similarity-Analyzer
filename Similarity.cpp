@@ -240,5 +240,30 @@ namespace Similarity {
         SimilarityReport report = analyze(text1, text2);
         return report.finalPercent / 100.0;
     }
+
+    std::string similarityBand(double finalPercent) {
+        if (!std::isfinite(finalPercent)) {
+            return "Unknown";
+        }
+        if (finalPercent < 0.0) {
+            finalPercent = 0.0;
+        }
+        if (finalPercent > 100.0) {
+            finalPercent = 100.0;
+        }
+        if (finalPercent >= 80.0) {
+            return "Very high";
+        }
+        if (finalPercent >= 60.0) {
+            return "High";
+        }
+        if (finalPercent >= 40.0) {
+            return "Moderate";
+        }
+        if (finalPercent >= 20.0) {
+            return "Low";
+        }
+        return "Very low";
+    }
 }
 
