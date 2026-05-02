@@ -7,7 +7,7 @@ cmake -S . -B build
 cmake --build build
 ```
 
-The executable will be inside the `build/` folder.
+The executable target is **PlagiarismChecker**. After building, look under `build/` (and sometimes `build/Debug` or `build/Release` depending on the generator) for `PlagiarismChecker` or `PlagiarismChecker.exe`.
 
 ## g++ (single command)
 
