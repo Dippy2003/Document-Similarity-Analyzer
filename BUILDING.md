@@ -34,3 +34,9 @@ Change to your project directory using MSYS2 paths, for example:
 cd /c/Users/YourName/path/to/PlagiarismChecker_CPP
 ```
 
+Then run the same `g++` command as above and start the program:
+
+```bash
+./PlagiarismChecker.exe
+```
+
