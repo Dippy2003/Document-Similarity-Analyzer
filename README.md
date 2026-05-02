@@ -124,3 +124,10 @@ The report includes:
 
 - This is an educational project focused on applying core data structures to text analysis.
 - For platform-specific compiler setup, see `BUILDING.md`.
+
+## Future Improvements
+
+- Add configurable metric weights through CLI flags.
+- Export reports to a file format such as CSV or JSON.
+- Add unit tests for utilities and similarity calculations.
+- Support comparison across more than two documents.
