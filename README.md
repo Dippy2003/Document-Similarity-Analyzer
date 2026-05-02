@@ -46,6 +46,10 @@ It is designed as a data-structures–oriented project, showing how core structu
    - `TextUtils::tokenizeWords`:
      - Splits normalized text by spaces into `std::vector<std::string>`
      - Optionally removes common stopwords (`the, a, an, is, are, to, of, and, in`)
+   - `TextUtils::countAlphanumericChars`:
+     - Counts letters and digits in the **original** input (before normalization), useful for raw document size hints.
+   - `TextUtils::averageTokenLength`:
+     - Returns the mean length in characters of the cleaned tokens for a document (0.0 if there are no tokens).
    - The project uses `tokenizeWords(..., true)` to remove stopwords.
 
 4. **Populate data structures**
@@ -93,6 +97,10 @@ It is designed as a data-structures–oriented project, showing how core structu
                       0.2 \times \text{Reverse}
        \]
 
+   - **Similarity band (`Similarity::similarityBand`)**
+     - Maps the final percentage to a short label for quick interpretation:
+       - **Very high** (at least 80%), **High** (at least 60%), **Moderate** (at least 40%), **Low** (at least 20%), **Very low** (below 20%), or **Unknown** for non-finite values.
+
 ### Matching Words Report
 
 Using BST traversal, the project builds a list of common words:
@@ -110,9 +118,10 @@ Using BST traversal, the project builds a list of common words:
 For a pair of documents, the program prints a formatted report including:
 
 - Total and unique word counts per document.
+- Alphanumeric character counts and average cleaned word length per document.
 - Intersection size (common unique words).
 - Jaccard, ordered, and reverse similarity percentages.
-- Final similarity score (weighted average).
+- Final similarity score (weighted average) and its similarity band label.
 - A “Top Matching Words” section showing the most frequent shared words and counts.
 
 ### Demo Mode and Basic Checks
