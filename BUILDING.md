@@ -28,3 +28,9 @@ pacman -Syu
 pacman -S mingw-w64-ucrt-x86_64-gcc
 ```
 
+Change to your project directory using MSYS2 paths, for example:
+
+```bash
+cd /c/Users/YourName/path/to/PlagiarismChecker_CPP
+```
+
