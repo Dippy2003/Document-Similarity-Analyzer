@@ -38,6 +38,12 @@ A C++ console application that compares two documents and reports textual simila
    - `Final = 0.6 * Jaccard + 0.2 * Ordered + 0.2 * Reverse`
 6. Print summary and top matching words.
 
+## Prerequisites
+
+- A C++17-compatible compiler (`g++`, `clang++`, or MSVC).
+- CMake 3.10+ if you want to use the CMake workflow.
+- A terminal (PowerShell, Command Prompt, Bash, or MSYS2 shell).
+
 ## Build and Run
 
 ### Quick build with g++
