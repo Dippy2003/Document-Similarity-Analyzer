@@ -35,6 +35,9 @@ namespace Similarity {
     SimilarityReport analyze(const std::string& text1, const std::string& text2);
 
     double computeSimilarity(const std::string& text1, const std::string& text2);
+
+    // Human-readable label for the final similarity percentage (e.g. "High").
+    std::string similarityBand(double finalPercent);
 }
 
 #endif
