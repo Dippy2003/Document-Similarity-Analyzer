@@ -24,6 +24,11 @@ namespace Similarity {
         double reversePercent;
         double finalPercent;
 
+        std::size_t alphanumericChars1;
+        std::size_t alphanumericChars2;
+        double avgWordLength1;
+        double avgWordLength2;
+
         std::vector<MatchingWord> topMatches;
     };
 
