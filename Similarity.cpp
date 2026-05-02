@@ -164,6 +164,11 @@ namespace Similarity {
         report.totalWords1 = tokens1.size();
         report.totalWords2 = tokens2.size();
 
+        report.alphanumericChars1 = TextUtils::countAlphanumericChars(text1);
+        report.alphanumericChars2 = TextUtils::countAlphanumericChars(text2);
+        report.avgWordLength1 = TextUtils::averageTokenLength(tokens1);
+        report.avgWordLength2 = TextUtils::averageTokenLength(tokens2);
+
         JaccardResult jac = jaccardUsingBST(tokens1, tokens2);
         report.uniqueWords1 = jac.unique1;
         report.uniqueWords2 = jac.unique2;
