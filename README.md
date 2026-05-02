@@ -84,6 +84,15 @@ When the app starts, choose one:
 3. `Demo Mode`  
    Runs built-in sample paragraphs and basic assert-style checks.
 
+## Quick Example Workflow
+
+1. Build the app with `g++` or CMake.
+2. Run `.\PlagiarismChecker.exe` (Windows) or `./PlagiarismChecker` (Linux/macOS).
+3. Choose mode `1` for manual text input.
+4. Paste document 1 and end it with a blank line.
+5. Paste document 2 and end it with a blank line.
+6. Review the generated similarity report and top matching words.
+
 ## Output Report
 
 The report includes:
