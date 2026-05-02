@@ -15,3 +15,5 @@ The executable will be inside the `build/` folder.
 g++ -std=c++17 main.cpp TextUtils.cpp Similarity.cpp -o PlagiarismChecker
 ```
 
+On Windows with MSYS2 MinGW, the compiler writes `PlagiarismChecker.exe` in the current directory.
+
