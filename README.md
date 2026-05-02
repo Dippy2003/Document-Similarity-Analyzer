@@ -113,6 +113,13 @@ The report includes:
 - `Low`: >= 20
 - `Very low`: < 20
 
+## Troubleshooting
+
+- If `g++` is not recognized, install a C++ toolchain and reopen your terminal.
+- If the executable does not run, verify you are in the build/output directory.
+- If file mode cannot open a path, provide an absolute path to the text file.
+- Empty or very short input can lead to very low similarity percentages.
+
 ## Notes
 
 - This is an educational project focused on applying core data structures to text analysis.
