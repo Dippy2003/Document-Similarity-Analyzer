@@ -83,5 +83,15 @@ namespace TextUtils {
         }
         return tokens;
     }
+
+    std::size_t countAlphanumericChars(const std::string& input) {
+        std::size_t n = 0;
+        for (unsigned char ch : input) {
+            if (std::isalnum(ch)) {
+                ++n;
+            }
+        }
+        return n;
+    }
 }
 
