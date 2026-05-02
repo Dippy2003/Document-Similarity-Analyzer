@@ -93,5 +93,16 @@ namespace TextUtils {
         }
         return n;
     }
+
+    double averageTokenLength(const std::vector<std::string>& tokens) {
+        if (tokens.empty()) {
+            return 0.0;
+        }
+        std::size_t sum = 0;
+        for (const auto& w : tokens) {
+            sum += w.size();
+        }
+        return static_cast<double>(sum) / static_cast<double>(tokens.size());
+    }
 }
 
