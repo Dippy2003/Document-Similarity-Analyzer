@@ -21,3 +21,10 @@ On Windows with MSYS2 MinGW, the compiler writes `PlagiarismChecker.exe` in the 
 
 Use the **MSYS2 UCRT64** terminal from the Start menu so `g++` from MinGW-w64 is on your PATH.
 
+Install the compiler if needed (from a UCRT64 shell):
+
+```bash
+pacman -Syu
+pacman -S mingw-w64-ucrt-x86_64-gcc
+```
+
