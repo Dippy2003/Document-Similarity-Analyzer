@@ -149,3 +149,5 @@ PlagiarismChecker.exe    # on Windows
 
 Follow the on-screen menu to enter texts manually, load from files, or run demo mode.
 
+See **`BUILDING.md`** for CMake instructions and a Windows MSYS2 / MinGW walkthrough.
+
