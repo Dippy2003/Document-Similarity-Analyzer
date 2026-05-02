@@ -78,6 +78,10 @@ namespace {
 
         std::cout << "Total words in doc1: " << report.totalWords1 << "\n";
         std::cout << "Total words in doc2: " << report.totalWords2 << "\n";
+        std::cout << "Alphanumeric characters (doc1): " << report.alphanumericChars1 << "\n";
+        std::cout << "Alphanumeric characters (doc2): " << report.alphanumericChars2 << "\n";
+        std::cout << "Avg word length (doc1): " << report.avgWordLength1 << "\n";
+        std::cout << "Avg word length (doc2): " << report.avgWordLength2 << "\n";
         std::cout << "Unique words in doc1: " << report.uniqueWords1 << "\n";
         std::cout << "Unique words in doc2: " << report.uniqueWords2 << "\n";
         std::cout << "Intersection (common unique words): " << report.intersectionSize << "\n\n";
@@ -86,7 +90,9 @@ namespace {
         std::cout << "Ordered Similarity (by position):  " << report.orderedPercent << "%\n";
         std::cout << "Reverse Similarity:                " << report.reversePercent << "%\n";
         std::cout << "----------------------------------------\n";
-        std::cout << "Final Similarity Score:            " << report.finalPercent << "%\n\n";
+        std::cout << "Final Similarity Score:            " << report.finalPercent << "%\n";
+        std::cout << "Similarity band:                   "
+                  << Similarity::similarityBand(report.finalPercent) << "\n\n";
 
         std::cout << "Top Matching Words (word : count1 + count2 = total)\n";
         std::cout << "----------------------------------------\n";
