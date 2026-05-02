@@ -17,3 +17,7 @@ g++ -std=c++17 main.cpp TextUtils.cpp Similarity.cpp -o PlagiarismChecker
 
 On Windows with MSYS2 MinGW, the compiler writes `PlagiarismChecker.exe` in the current directory.
 
+## MSYS2 / MinGW (Windows)
+
+Use the **MSYS2 UCRT64** terminal from the Start menu so `g++` from MinGW-w64 is on your PATH.
+
