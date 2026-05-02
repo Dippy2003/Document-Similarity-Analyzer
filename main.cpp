@@ -65,6 +65,10 @@ namespace {
         assert(qv.size() == 2);
         assert(qv[0] == "first");
         assert(qv[1] == "second");
+
+        assert(TextUtils::countAlphanumericChars("Hello, World! 123") == 13);
+        std::vector<std::string> lenTest = {"aa", "bbb"};
+        assert(TextUtils::averageTokenLength(lenTest) == 2.5);
     }
 
     void printReport(const Similarity::SimilarityReport& report) {
