@@ -12,6 +12,9 @@ namespace TextUtils {
     // Tokenize text into words separated by spaces.
     // If removeStopwords is true, common stopwords are removed.
     std::vector<std::string> tokenizeWords(const std::string& text, bool removeStopwords = false);
+
+    // Count letters and digits in the original string (before normalization).
+    std::size_t countAlphanumericChars(const std::string& input);
 }
 
 #endif
