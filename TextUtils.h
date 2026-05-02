@@ -15,6 +15,9 @@ namespace TextUtils {
 
     // Count letters and digits in the original string (before normalization).
     std::size_t countAlphanumericChars(const std::string& input);
+
+    // Mean token length in characters; returns 0.0 if tokens is empty.
+    double averageTokenLength(const std::vector<std::string>& tokens);
 }
 
 #endif
