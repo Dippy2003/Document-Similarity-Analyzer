@@ -1,0 +1,2 @@
+A digital plagiarism checker measures similarity between texts.
+It looks at shared words, sentence order, and structure to detect overlap.

@@ -64,6 +64,15 @@ On Windows:
 .\PlagiarismChecker.exe
 ```
 
+Or double-click / run `build.bat` from the project folder (requires `g++` on your PATH).
+
+## Sample files
+
+The `samples/` folder includes two short paragraphs for file-load mode (menu option **2**):
+
+- `samples/doc1.txt`
+- `samples/doc2.txt`
+
 ## CMake Build
 
 ```bash

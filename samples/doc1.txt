@@ -1,0 +1,2 @@
+Plagiarism detection compares documents to measure how similar they are.
+It analyzes words, order, and structure to find overlapping content.
