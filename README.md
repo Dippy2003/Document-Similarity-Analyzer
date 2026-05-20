@@ -1,142 +1,155 @@
-# PlagiarismChecker CPP
+# Document Similarity Analyzer (PlagiarismChecker CPP)
 
-A C++ console application that compares two documents and reports textual similarity using custom data structures.
+A C++17 console application that compares two text documents and reports how similar they are. The project demonstrates core data structures—linked list, queue, stack, and binary search tree—applied to a simple digital plagiarism / similarity checker.
 
-## Highlights
+**Repository:** [github.com/Dippy2003/Document-Similarity-Analyzer](https://github.com/Dippy2003/Document-Similarity-Analyzer)
 
-- Multiple input modes: manual typing, file-based input, and demo mode.
-- Multi-metric similarity scoring:
-  - Jaccard similarity (unique-word overlap)
-  - Ordered similarity (same word at same position)
-  - Reverse similarity (same word when compared from the end)
-- Weighted final score with a readable similarity band.
-- Top shared words report with per-document counts.
-- Data-structures-focused design (linked list, queue, stack, BST).
+## Features
 
-## Project Structure
+- **Three input modes:** manual entry, file paths, or built-in demo paragraphs
+- **Multi-metric scoring:**
+  - **Jaccard** — overlap of unique words (via BST traversal)
+  - **Ordered** — words matching at the same index (via queue)
+  - **Reverse** — matches when read from the end (via stack)
+- **Weighted final score:** `0.6 × Jaccard + 0.2 × Ordered + 0.2 × Reverse`
+- **Similarity band** label (Very low → Very high)
+- **Top matching words** with per-document frequency counts
 
-- `main.cpp` - Program entry point, menu flow, input handling, and report printing.
-- `TextUtils.h` / `TextUtils.cpp` - Text normalization, tokenization, and basic text statistics.
-- `Similarity.h` / `Similarity.cpp` - Similarity analysis engine and reporting model.
-- `LinkedList.h`, `Queue.h`, `Stack.h`, `BST.h` - Custom data structure implementations.
-- `BUILDING.md` - Detailed CMake and MSYS2/MinGW build instructions.
+## Project structure
 
-## How It Works
+| Path | Role |
+|------|------|
+| `main.cpp` | Menu, input handling, report output |
+| `TextUtils.h` / `TextUtils.cpp` | Normalization, tokenization, stopwords, stats |
+| `Similarity.h` / `Similarity.cpp` | Metrics, report model, similarity bands |
+| `LinkedList.h`, `Queue.h`, `Stack.h`, `BST.h` | Custom data structures (no STL containers for storage) |
+| `samples/doc1.txt`, `samples/doc2.txt` | Example texts for file-load mode |
+| `build.bat` | Quick Windows build with `g++` |
+| `CMakeLists.txt` | CMake build target `PlagiarismChecker` |
+| `BUILDING.md` | MSYS2 / MinGW and CMake details |
 
-1. Read two input documents.
-2. Normalize and tokenize text (lowercase, punctuation handling, optional stopword removal).
-3. Populate custom data structures for each document:
-   - linked list for dynamic token storage
-   - queue for original order comparisons
-   - stack for reverse order comparisons
-   - BST for unique words and frequency counts
-4. Compute metrics:
-   - `Jaccard` = unique intersection / unique union
-   - `Ordered` = positional word matches / max token length
-   - `Reverse` = reverse-positional matches / max token length
-5. Compute final weighted score:
-   - `Final = 0.6 * Jaccard + 0.2 * Ordered + 0.2 * Reverse`
-6. Print summary and top matching words.
+## How it works
+
+1. Read two documents (stdin, files, or demo strings).
+2. **Normalize** text: lowercase, strip punctuation, collapse spaces.
+3. **Tokenize** into words; optional stopword removal (`the`, `a`, `is`, …).
+4. For each document, populate:
+   - **Linked list** — all tokens in insertion order
+   - **Queue** — tokens for positional comparison
+   - **Stack** — tokens for reverse-order comparison
+   - **BST** — unique words with occurrence counts
+5. Compute Jaccard, ordered, and reverse percentages; combine into a final score.
+6. List up to **15** shared words ranked by combined frequency.
 
 ## Prerequisites
 
-- A C++17-compatible compiler (`g++`, `clang++`, or MSVC).
-- CMake 3.10+ if you want to use the CMake workflow.
-- A terminal (PowerShell, Command Prompt, Bash, or MSYS2 shell).
+- C++17 compiler (`g++`, `clang++`, or MSVC)
+- Optional: **CMake 3.16+** for the CMake workflow
+- Terminal: PowerShell, Command Prompt, Bash, or MSYS2
 
-## Build and Run
+## Build and run
 
-### Quick build with g++
+### Option A — `g++` (single command)
 
 ```bash
 g++ -std=c++17 main.cpp TextUtils.cpp Similarity.cpp -o PlagiarismChecker
 ```
 
-### Run
-
 ```bash
-./PlagiarismChecker
+./PlagiarismChecker          # Linux / macOS
+.\PlagiarismChecker.exe      # Windows
 ```
 
-On Windows:
+### Option B — `build.bat` (Windows)
 
-```powershell
-.\PlagiarismChecker.exe
+From the project folder (requires `g++` on your PATH):
+
+```bat
+build.bat
+PlagiarismChecker.exe
 ```
 
-Or double-click / run `build.bat` from the project folder (requires `g++` on your PATH).
-
-## Sample files
-
-The `samples/` folder includes two short paragraphs for file-load mode (menu option **2**):
-
-- `samples/doc1.txt`
-- `samples/doc2.txt`
-
-## CMake Build
+### Option C — CMake
 
 ```bash
 cmake -S . -B build
 cmake --build build
 ```
 
-Run the generated executable from the `build` directory (or its configuration subfolder, depending on generator).
+Run the executable from `build/` (or `build/Debug` / `build/Release`, depending on your generator).
 
-## Input Modes
+See [BUILDING.md](BUILDING.md) for MSYS2 / MinGW setup on Windows.
 
-When the app starts, choose one:
+## Usage
 
-1. `Enter texts manually`  
-   Type text and finish each document with a blank line.
-2. `Load texts from files`  
-   Provide file paths for both documents.
-3. `Demo Mode`  
-   Runs built-in sample paragraphs and basic assert-style checks.
+At startup, choose:
 
-## Quick Example Workflow
+| Option | Description |
+|--------|-------------|
+| **1** | Type each document; end input with a **blank line** |
+| **2** | Enter paths to two `.txt` files |
+| **3** | **Demo mode** — runs sample paragraphs and internal sanity checks |
 
-1. Build the app with `g++` or CMake.
-2. Run `.\PlagiarismChecker.exe` (Windows) or `./PlagiarismChecker` (Linux/macOS).
-3. Choose mode `1` for manual text input.
-4. Paste document 1 and end it with a blank line.
-5. Paste document 2 and end it with a blank line.
-6. Review the generated similarity report and top matching words.
+### Try it with bundled samples
 
-## Output Report
+1. Build the app (any option above).
+2. Run the executable and select **2**.
+3. Enter paths (relative to the project folder):
+
+   ```
+   samples\doc1.txt
+   samples\doc2.txt
+   ```
+
+   On Linux/macOS use `samples/doc1.txt` and `samples/doc2.txt`.
+
+4. Review the similarity report.
+
+### Demo mode
+
+Option **3** uses two built-in paragraphs about plagiarism detection and prints a full report without typing or files.
+
+## Sample output
 
 The report includes:
 
-- total words and unique words in each document
-- alphanumeric character counts
-- average cleaned token length
-- intersection of unique words
-- Jaccard, ordered, and reverse similarity percentages
-- final weighted similarity score + band label
-- top matching words (`count_doc1 + count_doc2 = total`)
+- Total and unique word counts per document
+- Alphanumeric character counts and average token length
+- Size of the unique-word intersection
+- Jaccard, ordered, and reverse similarity (%)
+- Final weighted score and **similarity band**
+- Top matching words: `word : count1 + count2 = total`
 
-## Similarity Bands
+## Similarity bands
 
-- `Very high`: >= 80
-- `High`: >= 60
-- `Moderate`: >= 40
-- `Low`: >= 20
-- `Very low`: < 20
+| Band | Final score |
+|------|-------------|
+| Very high | ≥ 80% |
+| High | ≥ 60% |
+| Moderate | ≥ 40% |
+| Low | ≥ 20% |
+| Very low | &lt; 20% |
 
 ## Troubleshooting
 
-- If `g++` is not recognized, install a C++ toolchain and reopen your terminal.
-- If the executable does not run, verify you are in the build/output directory.
-- If file mode cannot open a path, provide an absolute path to the text file.
-- Empty or very short input can lead to very low similarity percentages.
+| Issue | What to try |
+|-------|-------------|
+| `g++` not found | Install a C++ toolchain; reopen the terminal. See [BUILDING.md](BUILDING.md). |
+| File mode fails | Use an absolute path, or run from the project directory so `samples\...` resolves. |
+| Very low scores | Short or unrelated texts produce few shared tokens. |
+| Executable missing | Run from the folder where you built, or use the path under `build/`. |
 
-## Notes
+## Educational focus
 
-- This is an educational project focused on applying core data structures to text analysis.
-- For platform-specific compiler setup, see `BUILDING.md`.
+This project is intended for learning data structures and basic text analysis—not production plagiarism detection. Real systems use n-grams, hashing, databases, and much larger corpora.
 
-## Future Improvements
+## Future improvements
 
-- Add configurable metric weights through CLI flags.
-- Export reports to a file format such as CSV or JSON.
-- Add unit tests for utilities and similarity calculations.
-- Support comparison across more than two documents.
+- Configurable metric weights (CLI flags)
+- Export reports to CSV or JSON
+- Unit tests for `TextUtils` and `Similarity`
+- Compare more than two documents at once
+
+## License
+
+No license file is specified yet. Contact the repository owner before redistributing or using this code in other projects.
