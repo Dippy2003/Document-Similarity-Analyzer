@@ -12,7 +12,7 @@ The executable target is **PlagiarismChecker**. After building, look under `buil
 ## g++ (single command)
 
 ```bash
-g++ -std=c++17 main.cpp TextUtils.cpp Similarity.cpp -o PlagiarismChecker
+g++ -std=c++17 main.cpp TextUtils.cpp Similarity.cpp ReportExport.cpp CliConfig.cpp -o PlagiarismChecker
 ```
 
 On Windows with MSYS2 MinGW, the compiler writes `PlagiarismChecker.exe` in the current directory.
@@ -31,7 +31,7 @@ pacman -S mingw-w64-ucrt-x86_64-gcc
 Change to your project directory using MSYS2 paths, for example:
 
 ```bash
-cd /c/Users/YourName/path/to/PlagiarismChecker_CPP
+cd /c/Users/YourName/path/to/Document-Similarity-Analyzer
 ```
 
 Then run the same `g++` command as above and start the program:
@@ -40,3 +40,12 @@ Then run the same `g++` command as above and start the program:
 ./PlagiarismChecker.exe
 ```
 
+## CLI quick test (after build)
+
+From the project root:
+
+```bash
+./PlagiarismChecker.exe samples/doc1.txt samples/doc2.txt
+./PlagiarismChecker.exe samples/doc1.txt samples/doc2.txt --json report.json --csv report.csv
+./PlagiarismChecker.exe --help
+```
