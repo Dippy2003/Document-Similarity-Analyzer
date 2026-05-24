@@ -8,5 +8,7 @@ add_executable(PlagiarismChecker
     main.cpp
     TextUtils.cpp
     Similarity.cpp
+    ReportExport.cpp
+    CliConfig.cpp
 )
 
