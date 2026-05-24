@@ -5,6 +5,18 @@
 #include <vector>
 
 namespace Similarity {
+    struct MetricWeights {
+        double jaccard = 0.6;
+        double ordered = 0.2;
+        double reverse = 0.2;
+    };
+
+    struct AnalyzeOptions {
+        bool removeStopwords = true;
+        MetricWeights weights{};
+        int topMatchLimit = 15;
+    };
+
     struct MatchingWord {
         std::string word;
         int count1;
@@ -32,13 +44,13 @@ namespace Similarity {
         std::vector<MatchingWord> topMatches;
     };
 
-    SimilarityReport analyze(const std::string& text1, const std::string& text2);
+    SimilarityReport analyze(const std::string& text1, const std::string& text2,
+                             const AnalyzeOptions& options = {});
 
-    double computeSimilarity(const std::string& text1, const std::string& text2);
+    double computeSimilarity(const std::string& text1, const std::string& text2,
+                             const AnalyzeOptions& options = {});
 
-    // Human-readable label for the final similarity percentage (e.g. "High").
     std::string similarityBand(double finalPercent);
 }
 
 #endif
-

@@ -155,11 +155,14 @@ namespace {
 }
 
 namespace Similarity {
-    SimilarityReport analyze(const std::string& text1, const std::string& text2) {
+    SimilarityReport analyze(const std::string& text1, const std::string& text2,
+                             const AnalyzeOptions& options) {
         SimilarityReport report{};
 
-        std::vector<std::string> tokens1 = TextUtils::tokenizeWords(text1, true);
-        std::vector<std::string> tokens2 = TextUtils::tokenizeWords(text2, true);
+        std::vector<std::string> tokens1 =
+            TextUtils::tokenizeWords(text1, options.removeStopwords);
+        std::vector<std::string> tokens2 =
+            TextUtils::tokenizeWords(text2, options.removeStopwords);
 
         report.totalWords1 = tokens1.size();
         report.totalWords2 = tokens2.size();
@@ -194,7 +197,8 @@ namespace Similarity {
         report.orderedPercent = toPercent(ordered);
         report.reversePercent = toPercent(reverse);
 
-        double finalScore = 0.6 * jac.value + 0.2 * ordered + 0.2 * reverse;
+        const MetricWeights& w = options.weights;
+        double finalScore = w.jaccard * jac.value + w.ordered * ordered + w.reverse * reverse;
         report.finalPercent = toPercent(finalScore);
 
         // Build matching words report using BST traversal and counts.
@@ -228,16 +232,21 @@ namespace Similarity {
                       return a.word < b.word;
                   });
 
-        if (matches.size() > 15) {
-            matches.resize(15);
+        int topLimit = options.topMatchLimit;
+        if (topLimit < 1) {
+            topLimit = 1;
+        }
+        if (matches.size() > static_cast<std::size_t>(topLimit)) {
+            matches.resize(static_cast<std::size_t>(topLimit));
         }
         report.topMatches = matches;
 
         return report;
     }
 
-    double computeSimilarity(const std::string& text1, const std::string& text2) {
-        SimilarityReport report = analyze(text1, text2);
+    double computeSimilarity(const std::string& text1, const std::string& text2,
+                             const AnalyzeOptions& options) {
+        SimilarityReport report = analyze(text1, text2, options);
         return report.finalPercent / 100.0;
     }
 
