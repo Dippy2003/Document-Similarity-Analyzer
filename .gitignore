@@ -8,6 +8,10 @@
 *.dylib
 *.out
 
+build/
+report.json
+report.csv
+
 # IDE
 .vscode/
 .idea/
