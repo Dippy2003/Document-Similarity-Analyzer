@@ -18,6 +18,8 @@ namespace TextUtils {
 
     // Mean token length in characters; returns 0.0 if tokens is empty.
     double averageTokenLength(const std::vector<std::string>& tokens);
+
+    std::size_t countLines(const std::string& input);
 }
 
 #endif

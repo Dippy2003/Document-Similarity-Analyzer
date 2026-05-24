@@ -104,5 +104,18 @@ namespace TextUtils {
         }
         return static_cast<double>(sum) / static_cast<double>(tokens.size());
     }
+
+    std::size_t countLines(const std::string& input) {
+        if (input.empty()) {
+            return 0;
+        }
+        std::size_t lines = 1;
+        for (char ch : input) {
+            if (ch == '\n') {
+                ++lines;
+            }
+        }
+        return lines;
+    }
 }
 
