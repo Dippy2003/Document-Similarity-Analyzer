@@ -42,6 +42,7 @@ namespace ReportExport {
         appendNumberField(oss, "jaccardPercent", report.jaccardPercent);
         appendNumberField(oss, "orderedPercent", report.orderedPercent);
         appendNumberField(oss, "reversePercent", report.reversePercent);
+        appendNumberField(oss, "cosinePercent", report.cosinePercent);
         appendNumberField(oss, "finalPercent", report.finalPercent);
         oss << ",\"similarityBand\":\""
             << escapeJsonString(Similarity::similarityBand(report.finalPercent))
@@ -73,6 +74,7 @@ namespace ReportExport {
         oss << "jaccard_percent," << report.jaccardPercent << "\n";
         oss << "ordered_percent," << report.orderedPercent << "\n";
         oss << "reverse_percent," << report.reversePercent << "\n";
+        oss << "cosine_percent," << report.cosinePercent << "\n";
         oss << "final_percent," << report.finalPercent << "\n";
         oss << "similarity_band," << Similarity::similarityBand(report.finalPercent) << "\n";
         oss << "\nword,count_doc1,count_doc2,total\n";

@@ -102,6 +102,7 @@ namespace {
         std::cout << "Jaccard Similarity (unique words): " << report.jaccardPercent << "%\n";
         std::cout << "Ordered Similarity (by position):  " << report.orderedPercent << "%\n";
         std::cout << "Reverse Similarity:                " << report.reversePercent << "%\n";
+        std::cout << "Cosine Similarity (frequency):     " << report.cosinePercent << "%\n";
         std::cout << "----------------------------------------\n";
         std::cout << "Final Similarity Score:            " << report.finalPercent << "%\n";
         std::cout << "Similarity band:                   "
