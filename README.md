@@ -13,6 +13,7 @@ A C++17 console application that compares two text documents and reports how sim
   - **Reverse** — matches when read from the end (via stack)
 - **Configurable weights** via `--weights jaccard,ordered,reverse` (default `0.6,0.2,0.2`)
 - **JSON and CSV export** for reports (`--json`, `--csv`)
+- **Cosine similarity metric** based on token frequency vectors
 - **Similarity band** label (Very low → Very high)
 - **Top matching words** with configurable limit (`--top N`)
 
@@ -95,6 +96,7 @@ Custom weights and top-word limit:
 | `--json path` | Write JSON report |
 | `--csv path` | Write CSV report |
 | `--keep-stopwords` | Do not filter stopwords |
+| `--cosine-only` | Print only the cosine similarity score |
 
 ## Interactive usage
 
@@ -121,8 +123,8 @@ The report includes:
 - Total and unique word counts
 - Alphanumeric character counts and average token length
 - Unique-word intersection size
-- Jaccard, ordered, and reverse similarity (%)
-- Final weighted score and **similarity band**
+- Jaccard, ordered, reverse, and cosine similarity (%)
+- Final weighted score (Jaccard + ordered + reverse) and **similarity band**
 - Top matching words: `word : count1 + count2 = total`
 
 ## Similarity bands
