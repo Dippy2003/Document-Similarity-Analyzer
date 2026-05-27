@@ -34,6 +34,7 @@ namespace Similarity {
         double jaccardPercent;
         double orderedPercent;
         double reversePercent;
+        double cosinePercent;
         double finalPercent;
 
         std::size_t alphanumericChars1;

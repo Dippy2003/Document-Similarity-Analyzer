@@ -152,6 +152,61 @@ namespace {
 
         return static_cast<double>(matches) / static_cast<double>(maxLen);
     }
+
+    double cosineSimilarity(const std::vector<std::string>& tokens1,
+                            const std::vector<std::string>& tokens2) {
+        if (tokens1.empty() || tokens2.empty()) {
+            return 0.0;
+        }
+
+        std::unordered_map<std::string, int> freq1;
+        std::unordered_map<std::string, int> freq2;
+        for (const auto& w : tokens1) {
+            ++freq1[w];
+        }
+        for (const auto& w : tokens2) {
+            ++freq2[w];
+        }
+
+        double dot = 0.0;
+        double norm1 = 0.0;
+        double norm2 = 0.0;
+
+        for (const auto& kv : freq1) {
+            norm1 += static_cast<double>(kv.second) * static_cast<double>(kv.second);
+        }
+        for (const auto& kv : freq2) {
+            norm2 += static_cast<double>(kv.second) * static_cast<double>(kv.second);
+        }
+
+        for (const auto& kv : freq1) {
+            auto it = freq2.find(kv.first);
+            if (it != freq2.end()) {
+                dot += static_cast<double>(kv.second) * static_cast<double>(it->second);
+            }
+        }
+
+        if (norm1 == 0.0 || norm2 == 0.0) {
+            return 0.0;
+        }
+
+        double denom = std::sqrt(norm1) * std::sqrt(norm2);
+        if (denom == 0.0) {
+            return 0.0;
+        }
+
+        double value = dot / denom;
+        if (!std::isfinite(value)) {
+            return 0.0;
+        }
+        if (value < 0.0) {
+            value = 0.0;
+        }
+        if (value > 1.0) {
+            value = 1.0;
+        }
+        return value;
+    }
 }
 
 namespace Similarity {
@@ -179,6 +234,7 @@ namespace Similarity {
 
         double ordered = orderedSimilarityUsingQueue(tokens1, tokens2);
         double reverse = reverseSimilarityUsingStack(tokens1, tokens2);
+        double cosine = cosineSimilarity(tokens1, tokens2);
 
         auto toPercent = [](double v) {
             if (!std::isfinite(v)) {
@@ -196,6 +252,7 @@ namespace Similarity {
         report.jaccardPercent = toPercent(jac.value);
         report.orderedPercent = toPercent(ordered);
         report.reversePercent = toPercent(reverse);
+        report.cosinePercent = toPercent(cosine);
 
         const MetricWeights& w = options.weights;
         double finalScore = w.jaccard * jac.value + w.ordered * ordered + w.reverse * reverse;
