@@ -47,5 +47,6 @@ From the project root:
 ```bash
 ./PlagiarismChecker.exe samples/doc1.txt samples/doc2.txt
 ./PlagiarismChecker.exe samples/doc1.txt samples/doc2.txt --json report.json --csv report.csv
+./PlagiarismChecker.exe samples/short1.txt samples/short2.txt --cosine-only
 ./PlagiarismChecker.exe --help
 ```
