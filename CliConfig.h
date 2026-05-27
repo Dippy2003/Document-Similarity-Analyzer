@@ -10,6 +10,7 @@ struct CliConfig {
     bool showVersion = false;
     bool runInteractive = true;
     bool keepStopwords = false;
+    bool cosineOnly = false;
 
     std::string file1;
     std::string file2;

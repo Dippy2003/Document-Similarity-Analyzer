@@ -82,7 +82,8 @@ namespace {
 
     void printReport(const Similarity::SimilarityReport& report,
                      std::size_t lines1,
-                     std::size_t lines2) {
+                     std::size_t lines2,
+                     const CliConfig& cli) {
         std::cout << "\n========================================\n";
         std::cout << "   Document Similarity Report\n";
         std::cout << "========================================\n\n";
@@ -99,24 +100,32 @@ namespace {
         std::cout << "Unique words in doc2: " << report.uniqueWords2 << "\n";
         std::cout << "Intersection (common unique words): " << report.intersectionSize << "\n\n";
 
-        std::cout << "Jaccard Similarity (unique words): " << report.jaccardPercent << "%\n";
-        std::cout << "Ordered Similarity (by position):  " << report.orderedPercent << "%\n";
-        std::cout << "Reverse Similarity:                " << report.reversePercent << "%\n";
+        if (!cli.cosineOnly) {
+            std::cout << "Jaccard Similarity (unique words): " << report.jaccardPercent << "%\n";
+            std::cout << "Ordered Similarity (by position):  " << report.orderedPercent << "%\n";
+            std::cout << "Reverse Similarity:                " << report.reversePercent << "%\n";
+        }
         std::cout << "Cosine Similarity (frequency):     " << report.cosinePercent << "%\n";
-        std::cout << "----------------------------------------\n";
-        std::cout << "Final Similarity Score:            " << report.finalPercent << "%\n";
-        std::cout << "Similarity band:                   "
-                  << Similarity::similarityBand(report.finalPercent) << "\n\n";
-
-        std::cout << "Top Matching Words (word : count1 + count2 = total)\n";
-        std::cout << "----------------------------------------\n";
-        if (report.topMatches.empty()) {
-            std::cout << "No common words found.\n";
+        if (!cli.cosineOnly) {
+            std::cout << "----------------------------------------\n";
+            std::cout << "Final Similarity Score:            " << report.finalPercent << "%\n";
+            std::cout << "Similarity band:                   "
+                      << Similarity::similarityBand(report.finalPercent) << "\n\n";
         } else {
-            for (const auto& mw : report.topMatches) {
-                std::cout << mw.word << " : "
-                          << mw.count1 << " + " << mw.count2
-                          << " = " << mw.total << "\n";
+            std::cout << "----------------------------------------\n\n";
+        }
+
+        if (!cli.cosineOnly) {
+            std::cout << "Top Matching Words (word : count1 + count2 = total)\n";
+            std::cout << "----------------------------------------\n";
+            if (report.topMatches.empty()) {
+                std::cout << "No common words found.\n";
+            } else {
+                for (const auto& mw : report.topMatches) {
+                    std::cout << mw.word << " : "
+                              << mw.count1 << " + " << mw.count2
+                              << " = " << mw.total << "\n";
+                }
             }
         }
         std::cout << "========================================\n";
@@ -147,7 +156,7 @@ namespace {
         Similarity::AnalyzeOptions options = optionsFromCli(cli);
         Similarity::SimilarityReport report =
             Similarity::analyze(text1, text2, options);
-        printReport(report, TextUtils::countLines(text1), TextUtils::countLines(text2));
+        printReport(report, TextUtils::countLines(text1), TextUtils::countLines(text2), cli);
         writeOptionalExports(cli, report);
     }
 

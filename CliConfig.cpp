@@ -36,6 +36,7 @@ void printUsage(const char* program) {
     std::cout << "  --top N                 Max top matching words (default 15)\n";
     std::cout << "  --json <path>           Write JSON report to file\n";
     std::cout << "  --csv <path>            Write CSV report to file\n";
+    std::cout << "  --cosine-only           Print only the cosine similarity score\n";
     std::cout << "\nIf two file paths are given, compares them without the interactive menu.\n";
 }
 
@@ -52,6 +53,10 @@ bool parseCli(int argc, char* argv[], CliConfig& config) {
         }
         if (std::strcmp(arg, "--keep-stopwords") == 0) {
             config.keepStopwords = true;
+            continue;
+        }
+        if (std::strcmp(arg, "--cosine-only") == 0) {
+            config.cosineOnly = true;
             continue;
         }
         if (std::strcmp(arg, "--weights") == 0) {
